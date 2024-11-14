@@ -21,7 +21,7 @@ const HeaderDropdownMenu = ({navbar}) => {
         <Button variant="outline"><CiMenuFries /></Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
-        <DropdownMenuLabel>Panel Position</DropdownMenuLabel>
+        <DropdownMenuLabel>Hello</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
           {
