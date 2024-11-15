@@ -39,14 +39,14 @@ const About = () => {
             expression of self.
           </p>
           {/*  */}
-          <div className="flex flex-row justify-between items-center">
+          <div className="flex flex-row gap-4 justify-between items-center">
             {statistics.map((item, index) => (
-              <div key={index} className="bg-gray-100 p-4 space-y-2 rounded w-48">
+              <div key={index} className="bg-gray-100 rounded-xl p-4 space-y-2 rounded w-48 h-24 hover:shadow-2xl hover:shadow-secondary">
                 <div className="flex">
                   <h3 className="text-2xl text-secondary">{item.value}k</h3>
                   <h4>+</h4>
                 </div>
-                <p>{item.label}</p>
+                <p className="text-sm" >{item.label}</p>
               </div>
             ))}
           </div>
