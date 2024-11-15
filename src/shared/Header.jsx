@@ -37,7 +37,7 @@ const Header = () => {
         className={`fixed w-full top-0 z-50 transition-all duration-300 ease-in-out max-w-screen-xl mx-auto ${
           isScrolled
             ? "bg-gray-100 shadow-md"
-            : "bg-gray-50 opacity-55 text-white"
+            : "bg-[#f4e5ec] opacity-55 text-white"
         }`}
       >
         <nav
