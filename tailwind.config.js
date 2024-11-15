@@ -4,20 +4,9 @@ export default {
     content: ["./index.html", "./src/**/*.{ts,tsx,js,jsx}"],
   theme: {
   	extend: {
-		colors: {
-			// primary: "#f5f6f2",
-			primary: "#f9f9f9",
-			primaryLight: "#e3f7fa",
-			secondary: "#43c2d1",
-			tertiary: "#404040",
-			gray: {
-			  10: "#EEEEEE",
-			  20: "#A2A2A2",
-			  30: "#7B7B7B",
-			  50: "#585858",
-			  90: "#141414",
-			},
-		},
+		// colors: {
+			
+		// },
 		backgroundImage: {
 			hero: "url(/src/assets/bg.png)",
 			banner: "url(/src/assets/banner.png)",
@@ -67,7 +56,18 @@ export default {
   				'3': 'hsl(var(--chart-3))',
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
-  			}
+  			},
+			  primary: "#f9f9f9",
+			  primaryLight: "#e3f7fa",
+			  secondary: "#43c2d1",
+			  tertiary: "#404040",
+			  gray: {
+				10: "#EEEEEE",
+				20: "#A2A2A2",
+				30: "#7B7B7B",
+				50: "#585858",
+				90: "#141414",
+			  },
   		}
   	}
   },
