@@ -8,7 +8,7 @@ import { CgProfile } from "react-icons/cg";
 
 const navbar = [
   { id: 1, name: "Home", link: "/" },
-  { id: 2, name: "Collection", link: "/about" },
+  { id: 2, name: "Collection", link: "/collection" },
   { id: 3, name: "About", link: "/about" },
   { id: 4, name: "Contact", link: "/contact" },
 ];
