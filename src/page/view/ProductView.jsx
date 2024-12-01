@@ -1,10 +1,11 @@
+import { addToCard } from "@/app/feature/cartSlice";
 import { products } from "@/assets/data";
 import RelativeScrolling from "@/components/common/RelativeScrolling";
 import Title from "@/components/common/Title";
-import addToCart from "@/utils/addToCart";
 import React, { useEffect, useState } from "react";
 import { FaHeart, FaStar, FaStarHalfStroke, FaTractor } from "react-icons/fa6";
-import { useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const ProductView = () => {
@@ -13,8 +14,6 @@ const ProductView = () => {
   const [product, setProduct] = useState(null);
   const [image, setImage] = useState("");
   const [size, setSize] = useState("");
-  
-console.log(product);
 
   const fetchProductData = () => {
     const selectProduct = products.find((item) => item._id === id);
@@ -34,7 +33,17 @@ console.log(product);
     return <p>Loading.....</p>;
   }
 
+  const dispatch = useDispatch();
 
+
+  const addCart = (item , size) => {
+
+    console.log(item,size);
+    dispatch(addToCard(item));
+    toast.success(`${item.name} added to cart`)
+    
+
+  };
 
   return (
     <section>
@@ -101,13 +110,15 @@ console.log(product);
             </div>
             {/* add to cart  */}
             <div className="flex  gap-4">
-              <button
-              onClick={() => addToCart(product,size)}                           //
-                className="bg-tertiary text-white rounded-md py-2 px-10
+              <Link>
+                <button
+                  onClick={() => addCart(product,size)} //
+                  className="bg-tertiary text-white rounded-md py-2 px-10
             hover:bg-tertiary/80 transition-all duration-300"
-              >
-                Add to Cart
-              </button>
+                >
+                  Add to Cart
+                </button>
+              </Link>
               <button
                 // onClick={handleSizeChange}
                 className="py-2 px-6 border-[1px] border-bg-tertiary/80"
