@@ -1,5 +1,4 @@
 import { products } from "@/assets/data";
-import Cart from "@/components/common/Cart";
 import CollectionCart from "@/components/common/CollectionCart";
 import Search from "@/components/common/Search";
 import Title from "@/components/common/Title";
