@@ -37,7 +37,7 @@ const Header = () => {
         className={`fixed w-full top-0 z-50 transition-all duration-300 ease-in-out max-w-screen-xl mx-auto ${
           isScrolled
             ? "bg-gray-100 shadow-md"
-            : "bg-[#f4e5ec] opacity-55 text-white"
+            : "bg-transparent opacity-55 text-white"
         }`}
       >
         <nav
@@ -74,8 +74,11 @@ const Header = () => {
             <Link>
               <IoSearch className="text-2xl" />
             </Link>
-            <Link>
-              <BsHandbag className="text-2xl " />
+            <Link to={'/adProduct'}>
+              <div className="">
+                <BsHandbag className="text-2xl relative" />
+                <p className=" absolute top-[10px] right-[70px] bg-red-400 rounded-full px-2 py-1 p-1 text-white">4</p>
+              </div>
             </Link>
             <Link>
               {" "}
