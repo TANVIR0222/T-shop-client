@@ -1,4 +1,4 @@
-import { addToCard } from "@/app/feature/cartSlice";
+import { addToCard } from "@/app/feature/cart/cartSlice";
 import { products } from "@/assets/data";
 import RelativeScrolling from "@/components/common/RelativeScrolling";
 import Title from "@/components/common/Title";
