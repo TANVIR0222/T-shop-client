@@ -1,4 +1,4 @@
-import { updateQuantity } from "@/app/feature/cartSlice";
+import { updateQuantity } from "@/app/feature/cart/cartSlice";
 import CartTotal from "@/components/common/CartTotal";
 import { Button } from "@/components/ui/button";
 import React from "react";
