@@ -1,8 +1,11 @@
+import { useUserRegisterMutation } from "@/app/feature/authApi/AuthApi";
+import Loading from "@/components/common/Loading";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaRegEyeSlash } from "react-icons/fa6";
 import { FaRegEye } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Register = () => {
 
@@ -16,6 +19,7 @@ const Register = () => {
   const navigate = useNavigate();
   const [registerError, setError] = useState("");
 
+  const [userRegister , {isLoading}] = useUserRegisterMutation();
 
   const onSubmit = async (data) => {
     if (data.password !== data.confirmPassword) {
@@ -29,7 +33,17 @@ const Register = () => {
       password: data.password,
     };
 
-    console.log(register);
+    try {
+      const response = await userRegister(register).unwrap();
+      if(response.success){
+        toast.success("Register success");
+        navigate("/login");
+        reset()
+      }
+    } catch (error) {
+     setError(error?.data?.message);
+    }
+
 
   };
 
@@ -133,8 +147,8 @@ const Register = () => {
           <button
             className={`bg-slate-900 text-white py-2 rounded font-semibold my-3 tracking-wide`}
           >
-            Register
-           {/* {isLoading ? <p>Loading...</p> :'Register'} */}
+            {/* Register */}
+           {isLoading ? <p>Loading...</p> :'Register'}
           </button>
         </form>
 
