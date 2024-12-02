@@ -5,6 +5,9 @@ import { FaRegEye } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
+import { useUserLoginMutation } from "@/app/feature/authApi/AuthApi";
+import { toast } from "react-toastify";
+import { setUser } from "@/app/feature/authApi/userSlice";
 
 const Login = () => {
   const {
@@ -18,6 +21,7 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const [userLogin, { isLoading }] = useUserLoginMutation();
 
   const onSubmit = async (data) => {
     const login = {
@@ -25,13 +29,28 @@ const Login = () => {
       password: data.password,
     };
 
+    try {
+      const responce = await userLogin(login).unwrap();
+
+      const { user, token } = responce;
+      localStorage.setItem("token", token);
+
+      if (responce.success) {
+        toast.success("login success");
+        dispatch(setUser(user));
+        navigate("/")
+        reset();
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
     <section className="w-full container mx-auto px-2 mt-16">
       <div className="bg-white my-4 w-full max-w-lg mx-auto rounded p-7">
         <form className="grid gap-4 py-4" onSubmit={handleSubmit(onSubmit)}>
-            <h2 className="text-2xl font-bold text-center">Login</h2>
+          <h2 className="text-2xl font-bold text-center">Login</h2>
           <div className="grid gap-1">
             <label htmlFor="email">Email </label>
             <input
