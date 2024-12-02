@@ -42,7 +42,7 @@ const Login = () => {
         reset();
       }
     } catch (error) {
-      console.log(error);
+      setError(error?.data?.message);
     }
   };
 
