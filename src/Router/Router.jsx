@@ -3,6 +3,7 @@ import About from "@/page/About/About";
 import AddProduct from "@/page/admin/AddProduct";
 import ProductList from "@/page/admin/ProductList";
 import UpdateProduct from "@/page/admin/UpdateProduct";
+import UserList from "@/page/admin/UserList";
 import Login from "@/page/auth/Login";
 import Register from "@/page/auth/Register";
 import Collection from "@/page/Collection/Collection";
@@ -67,6 +68,10 @@ export  const router = createBrowserRouter([
         {
           path: "/update-product/:id",
           element: <UpdateProduct />,
+        },
+        {
+          path: "/all-user",
+          element: <UserList />,
         },
         
       ]
