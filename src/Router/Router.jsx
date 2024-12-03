@@ -1,5 +1,6 @@
 import App from "@/App";
 import About from "@/page/About/About";
+import AddProduct from "@/page/admin/AddProduct";
 import Login from "@/page/auth/Login";
 import Register from "@/page/auth/Register";
 import Collection from "@/page/Collection/Collection";
@@ -52,6 +53,10 @@ export  const router = createBrowserRouter([
         {
           path: "/register",
           element: <Register />,
+        },
+        {
+          path: "/add-product",
+          element: <AddProduct />,
         },
         
       ]
