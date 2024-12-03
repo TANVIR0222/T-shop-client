@@ -13,9 +13,37 @@ export const productApi = createApi({
         body: product
       }),
       invalidatesTags: ['Product'],
-
+    }),
+    featchAllProduct: builder.query({
+      query: () => ({
+        url: `/all-product`,
+        method: "GET",
+      }),
+      providesTags: ['Product'],
+    }),
+    deleteSingleProduct: builder.mutation({
+      query: (id) => ({
+        url: `/delete-product/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ['Product'],
+    }),
+    featchSingleProduct: builder.query({
+      query: (id) => ({
+        url: `/single-product/${id}`,
+        method: "get",
+      }),
+      providesTags: ['Product'],
+    }),
+    updateSingleProduct: builder.mutation({
+      query: ({id , ...res}) => ({
+        url: `/update-product/${id}`,
+        method: "PATCH",
+        body: res
+      }),
+      invalidatesTags: ['Product'],
     }),
   }),
 });
 
-export const { useNewProductAddMutation } = productApi;
+export const { useNewProductAddMutation  , useFeatchAllProductQuery  , useDeleteSingleProductMutation , useFeatchSingleProductQuery  , useUpdateSingleProductMutation } = productApi;
