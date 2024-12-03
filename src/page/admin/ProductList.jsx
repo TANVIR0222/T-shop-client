@@ -1,32 +1,47 @@
-import { useDeleteSingleProductMutation, useFeatchAllProductQuery } from "@/app/feature/productApi/productApi";
+import {
+  useDeleteSingleProductMutation,
+  useFeatchAllProductQuery,
+} from "@/app/feature/productApi/productApi";
 import Loading from "@/components/common/Loading";
 import React from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-
-
+import Swal from "sweetalert2";
 
 const ProductList = () => {
+  const { data: products, isLoading } = useFeatchAllProductQuery();
+  const [deleteSingleProduct] = useDeleteSingleProductMutation();
 
-    const {data:products , isLoading} = useFeatchAllProductQuery();
-    const [deleteSingleProduct] = useDeleteSingleProductMutation()
-
-    const handledeleteProduct = async(id) => {
-      console.log(id);
-      try {
-        const {success, message} = await deleteSingleProduct(id).unwrap();
-        if(success){
-          toast.success(message)
+  const handledeleteProduct = async (id) => {
+    try {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          const { success } = await deleteSingleProduct(id).unwrap();
+          if (success) {
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your file has been deleted.",
+              icon: "success",
+            });
+          }
         }
-      } catch (error) {
-        console.log(error);
-        
-      }
-      
+      });
+    } catch (error) {
+      console.log(error);
     }
+  };
 
-
-  return isLoading ? <Loading /> : (
+  return isLoading ? (
+    <Loading />
+  ) : (
     <div className="min-h-screen p-4 md:p-8 mt-16">
       <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6">
         All Products : {products?.product?.length}
@@ -44,7 +59,6 @@ const ProductList = () => {
           </thead>
           <tbody className="text-gray-700 text-sm">
             {products?.product?.map((product, index) => (
-                
               <tr
                 key={product._id}
                 className="border-b border-gray-200 hover:bg-gray-100 "
@@ -61,12 +75,15 @@ const ProductList = () => {
                 <td className="py-3 px-4">${product.price}</td>
                 <td className="py-3 px-4 text-center">
                   <div className="flex items-center justify-center space-x-4">
-                    <Link to={`/update-product/${product._id}` } >
-                    <button  className="bg-blue-500 text-white text-sm px-4 py-2 rounded hover:bg-blue-600">
-                      Edit
-                    </button>
+                    <Link to={`/update-product/${product._id}`}>
+                      <button className="bg-blue-500 text-white text-sm px-4 py-2 rounded hover:bg-blue-600">
+                        Edit
+                      </button>
                     </Link>
-                    <button onClick={() => handledeleteProduct(product._id)} className="bg-red-500 text-white text-sm px-4 py-2 rounded hover:bg-red-600">
+                    <button
+                      onClick={() => handledeleteProduct(product._id)}
+                      className="bg-red-500 text-white text-sm px-4 py-2 rounded hover:bg-red-600"
+                    >
                       Delete
                     </button>
                   </div>
