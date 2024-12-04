@@ -1,16 +1,17 @@
-import { addToCard } from "@/app/feature/cart/cartSlice";
+import { useAddProductCardMutation } from "@/app/feature/cart/cartApi";
 import { products } from "@/assets/data";
 import RelativeScrolling from "@/components/common/RelativeScrolling";
 import Title from "@/components/common/Title";
 import React, { useEffect, useState } from "react";
 import { FaHeart, FaStar, FaStarHalfStroke, FaTractor } from "react-icons/fa6";
-import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const ProductView = () => {
   const { id } = useParams();
-
+  const { user } = useSelector((state) => state.auth);
+  const [addProductCard] = useAddProductCardMutation();
   const [product, setProduct] = useState(null);
   const [image, setImage] = useState("");
   const [size, setSize] = useState("");
@@ -33,16 +34,20 @@ const ProductView = () => {
     return <p>Loading.....</p>;
   }
 
-  const dispatch = useDispatch();
-
-
-  const addCart = (item , size) => {
-
-    console.log(item,size);
-    dispatch(addToCard(item));
-    toast.success(`${item.name} added to cart`)
-    
-
+  const addCart = async (item, size) => {
+    if (size === "") return toast.error("Please select size");
+    try {
+      const data = {
+        userId: user._id,
+        image: item.image,
+        name: item.name,
+        price: item.price,
+      };
+      const { success } = await addProductCard(data).unwrap();
+      if (success) {
+        toast.success(`${item.name} added to cart`);
+      }
+    } catch (error) {}
   };
 
   return (
@@ -112,7 +117,7 @@ const ProductView = () => {
             <div className="flex  gap-4">
               <Link>
                 <button
-                  onClick={() => addCart(product,size)} //
+                  onClick={() => addCart(product, size)} //
                   className="bg-tertiary text-white rounded-md py-2 px-10
             hover:bg-tertiary/80 transition-all duration-300"
                 >
