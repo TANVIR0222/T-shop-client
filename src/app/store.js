@@ -6,6 +6,7 @@ import  userReducer  from './feature/authApi/userSlice'
 import { userApi } from './feature/userApi/userApi'
 import { imageApi } from './feature/imageUploadeApi/imageApi'
 import { productApi } from './feature/productApi/productApi'
+import { cartApi } from './feature/cart/cartApi'
 
 export const store = configureStore({
   reducer: {
@@ -15,10 +16,11 @@ export const store = configureStore({
     [userApi.reducerPath]: userApi.reducer,
     [imageApi.reducerPath]: imageApi.reducer,
     [productApi.reducerPath]: productApi.reducer,
+    [cartApi.reducerPath]: cartApi.reducer,
   },
   
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(authApi.middleware, userApi.middleware, imageApi.middleware , productApi.middleware),
+    getDefaultMiddleware().concat(authApi.middleware, userApi.middleware, imageApi.middleware , productApi.middleware , cartApi.middleware),
 })
 
 setupListeners(store.dispatch)
