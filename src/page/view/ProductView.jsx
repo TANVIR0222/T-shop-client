@@ -42,6 +42,7 @@ const ProductView = () => {
         image: item.image,
         name: item.name,
         price: item.price,
+        size: size,
       };
       const { success } = await addProductCard(data).unwrap();
       if (success) {
