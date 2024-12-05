@@ -1,9 +1,24 @@
 import CartTotal from "@/components/common/CartTotal";
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
+import { useFetchSingleCartQuery } from "@/app/feature/cart/cartApi";
+import { useUserOrderMutation } from "@/app/feature/orderApi/orderApi";
+import { toast } from "react-toastify";
 
 const PlaceOrder = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
   const locatons = useLocation();
+
+  const { user } = useSelector((state) => state.auth);
+  const { data: allCart } = useFetchSingleCartQuery(user._id);
+
   useEffect(() => {
     if (!locatons.state) {
       window.location.href = "/adProduct";
@@ -13,11 +28,42 @@ const PlaceOrder = () => {
   const totalPrice = locatons?.state;
 
   const [method, setMethod] = useState("false");
+  const [userOrder, { isLoading }] = useUserOrderMutation();
+  const onSubmit = async (data) => {
+    const address = {
+      fullName: data.fullName,
+      address: data.address,
+      city: data.city,
+      email: data.email,
+      street: data.street,
+      phone: data.phone,
+      postalCode: data.postalCode,
+    };
+
+    const oderData = {
+      address,
+      userId: user._id,
+      totalAmount: totalPrice,
+      items: allCart,
+    };
+
+    console.log(oderData);
+
+    try {
+      const { success } = await userOrder(oderData).unwrap();
+      if (success) {
+        toast.success("Paayment now");
+        reset();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="mt-16 mx-4 md:mx-1">
       {/* <div className=""> */}
-      <form className="">
+      <form className="" onSubmit={handleSubmit(onSubmit)}>
         <h2 className="text-2xl font-semibold text-gray-800 mb-6">
           Delivery Information
         </h2>
@@ -33,7 +79,7 @@ const PlaceOrder = () => {
                     name="fullName"
                     className="w-full md:w-72 px-4 py-2 border rounded-lg text-gray-800 focus:outline-none bg-gray-100"
                     placeholder="Enter your full name"
-                    required
+                    {...register("fullName", { required: true })}
                   />
                 </div>
 
@@ -44,7 +90,7 @@ const PlaceOrder = () => {
                     name="address"
                     className="w-full md:w-72 px-4 py-2 border rounded-lg text-gray-800 focus:outline-none bg-gray-100"
                     placeholder="Enter your address"
-                    required
+                    {...register("address", { required: true })}
                   />
                 </div>
               </div>
@@ -53,11 +99,11 @@ const PlaceOrder = () => {
               {/* Phone */}
               <div className="mb-4">
                 <input
-                  type="tel"
+                  type="number"
                   name="phone"
                   className="w-full px-4 py-2 border rounded-lg text-gray-800 focus:outline-none bg-gray-100"
                   placeholder="Enter your phone number"
-                  required
+                  {...register("phone", { required: true })}
                 />
               </div>
 
@@ -68,17 +114,17 @@ const PlaceOrder = () => {
                   name="email"
                   className="w-full px-4 py-2 border rounded-lg text-gray-800 focus:outline-none bg-gray-100"
                   placeholder="Enter your email"
-                  required
+                  {...register("email", { required: true })}
                 />
               </div>
               {/* state */}
               <div className="mb-6">
                 <input
-                  type="email"
-                  name="email"
+                  type="text"
+                  name="street"
                   className="w-full px-4 py-2 border rounded-lg text-gray-800 focus:outline-none bg-gray-100"
                   placeholder="Street"
-                  required
+                  {...register("street", { required: true })}
                 />
               </div>
             </div>
@@ -90,7 +136,7 @@ const PlaceOrder = () => {
                   name="city"
                   className="px-4 py-2 border w-full md:w-72 rounded-lg text-gray-800 focus:outline-none bg-gray-100"
                   placeholder="Enter your city"
-                  required
+                  {...register("city", { required: true })}
                 />
               </div>
 
@@ -101,7 +147,7 @@ const PlaceOrder = () => {
                   name="postalCode"
                   className="w-full md:w-72 px-4 py-2 border rounded-lg text-gray-800 focus:outline-none bg-gray-100"
                   placeholder="Enter your postal code"
-                  required
+                  {...register("postalCode", { required: true })}
                 />
               </div>
             </div>
@@ -130,14 +176,15 @@ const PlaceOrder = () => {
                   cash on Delivery
                 </button>
               </div>
+              <button className="bg-[#43c2d1] px-3 py-2 rounded my-3 text-white ">
+                {isLoading ? <p>Loading..</p> : "Place Order"}
+              </button>
             </div>
           </div>
         </div>
-        <Link to={"/order"}>
-          <button className="bg-[#43c2d1] px-3 py-2 rounded my-3 text-white ">
-            Place Order
-          </button>
-        </Link>
+        {/* <Link to={"/order"}> */}
+
+        {/* </Link> */}
 
         {/*  */}
       </form>
