@@ -1,6 +1,7 @@
 import App from "@/App";
 import About from "@/page/About/About";
 import AddProduct from "@/page/admin/AddProduct";
+import AllOrderList from "@/page/admin/AllOrderList";
 import ProductList from "@/page/admin/ProductList";
 import UpdateProduct from "@/page/admin/UpdateProduct";
 import UserList from "@/page/admin/UserList";
@@ -10,6 +11,7 @@ import Collection from "@/page/Collection/Collection";
 import Home from "@/page/Home/Home";
 import Order from "@/page/order/Order";
 import PlaceOrder from "@/page/order/PlaceOrder";
+import Success from "@/page/order/Success";
 import CartView from "@/page/view/CartView";
 import ProductView from "@/page/view/ProductView";
 import {
@@ -72,6 +74,14 @@ export  const router = createBrowserRouter([
         {
           path: "/all-user",
           element: <UserList />,
+        },
+        {
+          path: "/all-Order",
+          element: <AllOrderList />,
+        },
+        {
+          path: "/success",
+          element: <Success />,
         },
         
       ]
