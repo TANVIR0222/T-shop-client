@@ -1,10 +1,14 @@
 import CartTotal from "@/components/common/CartTotal";
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { useFetchSingleCartQuery } from "@/app/feature/cart/cartApi";
-import { useUserOrderMutation } from "@/app/feature/orderApi/orderApi";
+import {
+  useDeletCartOrderMutation,
+  useStripOrderMutation,
+  useUserOrderMutation,
+} from "@/app/feature/orderApi/orderApi";
 import { toast } from "react-toastify";
 
 const PlaceOrder = () => {
@@ -18,6 +22,7 @@ const PlaceOrder = () => {
 
   const { user } = useSelector((state) => state.auth);
   const { data: allCart } = useFetchSingleCartQuery(user._id);
+  const [cashLoading, setCashLoading] = useState(false);
 
   useEffect(() => {
     if (!locatons.state) {
@@ -26,9 +31,12 @@ const PlaceOrder = () => {
   }, []);
 
   const totalPrice = locatons?.state;
+  const navigate = useNavigate();
+  const [deletCartOrder] = useDeletCartOrderMutation();
 
   const [method, setMethod] = useState("false");
   const [userOrder, { isLoading }] = useUserOrderMutation();
+  const [stripOrder, { isLoading: stripeLoading }] = useStripOrderMutation();
   const onSubmit = async (data) => {
     const address = {
       fullName: data.fullName,
@@ -47,13 +55,38 @@ const PlaceOrder = () => {
       items: allCart,
     };
 
-    console.log(oderData);
-
     try {
-      const { success } = await userOrder(oderData).unwrap();
-      if (success) {
-        toast.success("Paayment now");
-        reset();
+      switch (method) {
+        case "cash":
+          setCashLoading(true)
+          const { success } = await userOrder(oderData).unwrap();
+          if (success) {
+            const deletecart = {
+              id: user._id,
+              succes: "success",
+            };
+            await deletCartOrder(deletecart).unwrap();
+            toast.success("Order Successfull");
+            reset();
+            
+            navigate("/");
+          }
+          break;
+        case "stripe":
+          const { session } = await stripOrder(oderData).unwrap();
+
+          if (session) {
+            window.location.replace(session);
+            toast.success("Paayment now");
+            reset();
+          } else {
+            toast.error("Payment failed");
+            // console.log(erro);
+          }
+          break;
+
+        default:
+          break;
       }
     } catch (error) {
       console.log(error);
@@ -151,6 +184,9 @@ const PlaceOrder = () => {
                 />
               </div>
             </div>
+            {/* <button className="bg-[#43c2d1] px-3 py-2 rounded my-3 text-white ">
+                {isLoading ? <p>Loading..</p> : "Place Order"}
+              </button> */}
           </div>
           <div className="w-full md:w-1/2">
             <CartTotal totalPrice={totalPrice} />
@@ -165,7 +201,7 @@ const PlaceOrder = () => {
                     method === "stripe" ? "text-[#43c2d1]" : ""
                   }  px-3 py-1 rounded my-3   border-[1px] bg-slate-100 border-black`}
                 >
-                  Stripe
+                 {stripeLoading ? <p>Loading..</p> : 'Stripe'}  
                 </button>
                 <button
                   onClick={() => setMethod("cash")}
@@ -173,12 +209,10 @@ const PlaceOrder = () => {
                     method === "cash" ? "text-[#43c2d1]" : ""
                   }  px-3 py-1 rounded my-3   border-[1px] bg-slate-100 border-black`}
                 >
-                  cash on Delivery
+                  {cashLoading ? <p>Loading..</p> : 'cash on Delivery'}
+                  
                 </button>
               </div>
-              <button className="bg-[#43c2d1] px-3 py-2 rounded my-3 text-white ">
-                {isLoading ? <p>Loading..</p> : "Place Order"}
-              </button>
             </div>
           </div>
         </div>
