@@ -1,56 +1,36 @@
+import { useFeatchAllProductQuery } from "@/app/feature/productApi/productApi";
 import { products } from "@/assets/data";
 import CollectionCart from "@/components/common/CollectionCart";
 import Search from "@/components/common/Search";
 import Title from "@/components/common/Title";
+import { Input } from "@/components/ui/input";
 import { useEffect, useState } from "react";
 
 const Collection = () => {
-  const [filterProducts, setFilterProduct] = useState([]);
-
-  const [category, setCategory] = useState([]);
+  const [search, setSearchQuery] = useState("");
+  const [category, setCategory] = useState("");
   const [subCategory, setSubCategory] = useState([]);
-  const [sortType, setSortType] = useState("relevant");
+  const [page, setPage] = useState(1);
 
-  const togolFilters = (value, setState) => {
-    setState((prev) => 
-        prev.includes(value) ? prev.filter((item) => item !== value) : [...prev, value]
-    )
+  console.log(category);
+  const queryParameters = {
+    category, // or 'alll' for all categories
+    subCategory,
+    search,
+    page,
+    limit: 10,
   };
+  const { data } = useFeatchAllProductQuery(queryParameters);
 
-  const applyFilters = () => {
-    let filtered = [...products];
-
-    if (category.length) {
-      filtered = filtered.filter((product) =>
-        category.includes(product.category)
-      );
-    }
-    if (subCategory.length) {
-      filtered = filtered.filter((product) =>
-        subCategory.includes(product.subCategory)
-      );
-    }
-    return filtered;
+  const handleNext = () => {
+    setPage(page + 1);
   };
-
-  const applySort = (productsList) => {
-    switch (sortType) {
-      case "low":
-        return productsList.sort((a, b) => a.price - b.price);
-      case "high":
-        return productsList.sort((a, b) => b.price - a.price);
-
-      default:
-        return productsList;
+  const handlePrevious = () => {
+    if (page === 1) {
+      return toast.success("First Page");
     }
+    setPage(page - 1);
   };
-
-  useEffect(() => {
-    let filtered = applyFilters();
-    let sorted = applySort(filtered);
-
-    setFilterProduct(sorted);
-  }, [category,subCategory,sortType,products]);
 
   return (
     <section className="">
@@ -58,14 +38,27 @@ const Collection = () => {
         {/* filter options  */}
         <div className="min-w-[200px]  md:h-screen bg-white p-4 shadow-2xl rounded-2xl">
           {/* search bar */}
-        <Search />
+          <div className="grid w-full max-w-sm items-center gap-1.5">
+            <label htmlFor="email">Search</label>
+            <Input
+              onChange={(e) => setSearchQuery(e.target.value)}
+              type="text"
+              id="email"
+              placeholder="search"
+            />
+          </div>
           {/* category filter */}
           <div className=" bg-primary ring-1 ring-slate-900/5 pl-5 py-3 mt-6 rounded-xl">
             <h5>Categories</h5>
             <div className="flex flex-col gap-2 text-sm font-light">
-              {["Men", "Women", "Kids"].map((cat) => (
+              {["Man", "Women", "Kids"].map((cat) => (
                 <label key={cat} className="flex gap-2 medium-14 text-gray-30">
-                  <input onChange={(e) => togolFilters(e.target.value,setCategory)} type="checkbox" value={cat} className="w-3" />
+                  <input
+                    onChange={(e) => setCategory(e.target.value)}
+                    type="checkbox"
+                    value={cat}
+                    className="w-3"
+                  />
                   {cat}
                 </label>
               ))}
@@ -81,7 +74,12 @@ const Collection = () => {
                   key={subCat}
                   className="flex gap-2 medium-14 text-gray-30"
                 >
-                  <input onChange={(e) => togolFilters(e.target.value,setSubCategory)} type="checkbox" value={subCat} className="w-3" />
+                  <input
+                    onChange={(e) => setSubCategory(e.target.value)}
+                    type="checkbox"
+                    value={subCat}
+                    className="w-3"
+                  />
                   {subCat}
                 </label>
               ))}
@@ -89,7 +87,7 @@ const Collection = () => {
           </div>
 
           {/* sort by */}
-          <select onChange={(e) => setSortType(e.target.value)} className="medium-14 h-8 w-full border border-slate-900/5 bg-primary text-gray-30 rounded-lg px-2 outline-none mt-6">
+          <select className="medium-14 h-8 w-full border border-slate-900/5 bg-primary text-gray-30 rounded-lg px-2 outline-none mt-6">
             <option className=" font-medium text-sm" value="relevant">
               {" "}
               Sort by : Relevant
@@ -106,8 +104,8 @@ const Collection = () => {
         <div className="bg-white p-4 rounded-2xl">
           <Title title="Our Collection" />
           <div className=" grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-4">
-            {filterProducts?.length > 0 ? (
-              filterProducts?.map((product) => (
+            {data?.product?.length > 0 ? (
+              data?.product?.map((product) => (
                 <div key={product._id} className="">
                   <CollectionCart item={product} />
                 </div>
@@ -115,6 +113,26 @@ const Collection = () => {
             ) : (
               <p>No product found for seleted filters.</p>
             )}
+          </div>
+          {/*  */}
+          <div className="flex mx-auto justify-center items-center gap-5 my-8">
+            <button
+              className="bg-secondary px-3 py-[6px] rounded "
+              onClick={handlePrevious}
+              disabled={page === 1 && !data?.product?.length}
+            >
+              Previous
+            </button>
+            <p className=" border-black border-2 rounded px-2">
+              {page}/{data?.totalPage}
+            </p>
+            <button
+              className="bg-secondary px-3 py-[6px] rounded "
+              onClick={handleNext}
+              disabled={data?.currentPage === data?.totalPage}
+            >
+              Next
+            </button>
           </div>
         </div>
       </div>
