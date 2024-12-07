@@ -39,7 +39,7 @@ const AddProduct = () => {
 
   const [newProductAdd , { isLoading: addLoading }] = useNewProductAddMutation();
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data) => {    
     const product = {
       name: data.name,
       subCategory: data.subcategory,
@@ -49,13 +49,14 @@ const AddProduct = () => {
       sizes: data.size,
       image: photos,
       populer,
-    };
+    };    
 
     try {
       const { success } = await newProductAdd(product).unwrap();
       if (success) {
         toast.success(` ${data?.name} add success`);
         reset();
+        photos('')
       }
     } catch (error) {
       setError(error?.data?.message);
@@ -157,9 +158,9 @@ const AddProduct = () => {
             className="w-full px-3 py-2 bg-gray-10 rounded-lg focus:outline-none "
           >
             <option value="">Select category</option>
-            <option value="electronics">Electronics</option>
-            <option value="clothing">Clothing</option>
-            <option value="home">Home</option>
+            <option value="Man">Man</option>
+            <option value="Women">Women</option>
+            <option value="Kids">Kids</option>
           </select>
         </div>
 
@@ -172,9 +173,9 @@ const AddProduct = () => {
             className="w-full px-3 py-2 bg-gray-10 rounded-lg focus:outline-none "
           >
             <option value="">Select category</option>
-            <option value="electronics">Topwear</option>
-            <option value="clothing">Bottomwear</option>
-            <option value="home">Winterwear</option>
+            <option value="Topwear">Topwear</option>
+            <option value="Bottomwear">Bottomwear</option>
+            <option value="Winterwear">Winterwear</option>
           </select>
         </div>
 
@@ -193,7 +194,7 @@ const AddProduct = () => {
         <div className="mb-4">
           <label className="block text-gray-600 mb-2">Size</label>
           <input
-            type="number"
+            type="text"
             name="size"
             {...register("size", { required: true })}
             placeholder="Enter size (e.g., S, M, L)"
