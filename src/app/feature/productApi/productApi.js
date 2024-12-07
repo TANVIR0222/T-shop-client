@@ -15,10 +15,19 @@ export const productApi = createApi({
       invalidatesTags: ['Product'],
     }),
     featchAllProduct: builder.query({
-      query: () => ({
-        url: `/all-product`,
-        method: "GET",
-      }),
+      query: ({ category, subCategory, minPrice, maxPrice, search, page, limit }) => {
+        // Construct query parameters dynamically
+        const params = new URLSearchParams({
+          ...(category && { category }),
+          ...(subCategory && { subCategory }),
+          ...(minPrice && { minPrice }),
+          ...(maxPrice && { maxPrice }),
+          ...(search && { search }),
+          ...(page && { page }),
+          ...(limit && { limit }),
+        });
+        return `all-product?${params}`;
+      },
       providesTags: ['Product'],
     }),
     deleteSingleProduct: builder.mutation({
