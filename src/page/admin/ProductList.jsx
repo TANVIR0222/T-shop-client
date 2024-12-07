@@ -1,6 +1,6 @@
 import {
   useDeleteSingleProductMutation,
-  useFeatchAllProductQuery,
+  useAllProductQuery,
 } from "@/app/feature/productApi/productApi";
 import Loading from "@/components/common/Loading";
 import React from "react";
@@ -9,8 +9,10 @@ import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 
 const ProductList = () => {
-  const { data: products, isLoading } = useFeatchAllProductQuery();
+
+  const { data: products, isLoading } = useAllProductQuery();
   const [deleteSingleProduct] = useDeleteSingleProductMutation();
+  
 
   const handledeleteProduct = async (id) => {
     try {
@@ -44,7 +46,7 @@ const ProductList = () => {
   ) : (
     <div className="min-h-screen p-4 md:p-8 mt-16">
       <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6">
-        All Products : {products?.product?.length}
+        All Products : {products?.length}
       </h1>
       <div className="">
         <table className="w-full bg-white shadow-md rounded border border-gray-200">
@@ -58,7 +60,7 @@ const ProductList = () => {
             </tr>
           </thead>
           <tbody className="text-gray-700 text-sm">
-            {products?.product?.map((product, index) => (
+            {products?.map((product, index) => (
               <tr
                 key={product._id}
                 className="border-b border-gray-200 hover:bg-gray-100 "
