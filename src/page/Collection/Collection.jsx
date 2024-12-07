@@ -1,10 +1,8 @@
 import { useFeatchAllProductQuery } from "@/app/feature/productApi/productApi";
-import { products } from "@/assets/data";
 import CollectionCart from "@/components/common/CollectionCart";
-import Search from "@/components/common/Search";
 import Title from "@/components/common/Title";
 import { Input } from "@/components/ui/input";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const Collection = () => {
   const [search, setSearchQuery] = useState("");
@@ -12,7 +10,6 @@ const Collection = () => {
   const [subCategory, setSubCategory] = useState([]);
   const [page, setPage] = useState(1);
 
-  console.log(category);
   const queryParameters = {
     category, // or 'alll' for all categories
     subCategory,
