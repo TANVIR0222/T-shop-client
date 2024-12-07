@@ -53,8 +53,8 @@ export const productApi = createApi({
       invalidatesTags: ['Product'],
     }),
     allProduct: builder.query({
-      query: () => ({
-        url: `product`,
+      query: (search) => ({
+        url: `product?search=${search}`,
         method: "GET",
       }),
       providesTags: ['Product'],
