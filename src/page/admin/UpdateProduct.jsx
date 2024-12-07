@@ -80,7 +80,7 @@ const navigate = useNavigate()
         className="bg-white p-8 rounded-lg w-full "
       >
         <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
-          Add Product
+          Update  Product
         </h2>
 
         <div>
@@ -164,15 +164,15 @@ const navigate = useNavigate()
         <div className="mb-4">
           <label className="block text-gray-600 mb-2">Category</label>
           <select
-          defaultValue={products?.product?.category}
+          
             name="category"
             {...register("category", { required: true })}
             className="w-full px-3 py-2 bg-gray-10 rounded-lg focus:outline-none "
           >
-            <option value="">Select category</option>
-            <option value="electronics">Electronics</option>
-            <option value="clothing">Clothing</option>
-            <option value="home">Home</option>
+            <option value={`${products?.product?.category}`} >{products?.product?.category}</option>
+            <option value="Topwear">Topwear</option>
+            <option value="Bottomwear">Bottomwear</option>
+            <option value="Winterwear">Winterwear</option>
           </select>
         </div>
 
@@ -180,12 +180,11 @@ const navigate = useNavigate()
         <div className="mb-4">
           <label className="block text-gray-600 mb-2">Sub Category</label>
           <select
-          defaultValue={products?.product?.subCategory}
             name="subcategory"
             {...register("subcategory", { required: true })}
             className="w-full px-3 py-2 bg-gray-10 rounded-lg focus:outline-none "
           >
-            <option value="">Select category</option>
+            <option value={`${products?.product?.subCategory}`}>{products?.product?.subCategory}</option>
             <option value="electronics">Topwear</option>
             <option value="clothing">Bottomwear</option>
             <option value="home">Winterwear</option>
