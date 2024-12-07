@@ -52,7 +52,14 @@ export const productApi = createApi({
       }),
       invalidatesTags: ['Product'],
     }),
+    allProduct: builder.query({
+      query: () => ({
+        url: `product`,
+        method: "GET",
+      }),
+      providesTags: ['Product'],
+    }),
   }),
 });
 
-export const { useNewProductAddMutation  , useFeatchAllProductQuery  , useDeleteSingleProductMutation , useFeatchSingleProductQuery  , useUpdateSingleProductMutation } = productApi;
+export const { useNewProductAddMutation  , useFeatchAllProductQuery  , useDeleteSingleProductMutation , useFeatchSingleProductQuery  , useUpdateSingleProductMutation , useAllProductQuery } = productApi;
