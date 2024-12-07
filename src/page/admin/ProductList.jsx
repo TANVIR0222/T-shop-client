@@ -3,16 +3,15 @@ import {
   useAllProductQuery,
 } from "@/app/feature/productApi/productApi";
 import Loading from "@/components/common/Loading";
-import React from "react";
+import { Input } from "@/components/ui/input";
+import { Search } from "lucide-react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 
 const ProductList = () => {
-
-  const { data: products, isLoading } = useAllProductQuery();
   const [deleteSingleProduct] = useDeleteSingleProductMutation();
-  
 
   const handledeleteProduct = async (id) => {
     try {
@@ -41,13 +40,35 @@ const ProductList = () => {
     }
   };
 
+  const [search, setSearchQuery] = useState("");
+  const { data: products, isLoading } = useAllProductQuery(search);
+
   return isLoading ? (
     <Loading />
   ) : (
     <div className="min-h-screen p-4 md:p-8 mt-16">
-      <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6">
-        All Products : {products?.length}
-      </h1>
+      <div className=" grid grid-cols-1 md:flex items-center justify-between w-full my-5 gap-4">
+        <div className="">
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-800 ">
+            All Products : {products?.length}
+          </h1>
+        </div>
+        <div className="w-full max-w-sm flex gap-4 items-center">
+          <Input
+            onChange={(e) => setSearchQuery(e.target.value)}
+            type="text"
+            id="text"
+            placeholder="search..."
+          />
+          <Search className="-ml-10" />
+          <button
+            className="bg-tertiary text-white rounded-md py-1 px-6
+            hover:bg-tertiary/80 transition-all duration-300"
+          >
+            search
+          </button>
+        </div>
+      </div>
       <div className="">
         <table className="w-full bg-white shadow-md rounded border border-gray-200">
           <thead>
