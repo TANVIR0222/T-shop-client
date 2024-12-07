@@ -1,4 +1,5 @@
 import { useAddProductCardMutation } from "@/app/feature/cart/cartApi";
+import { useFeatchSingleProductQuery } from "@/app/feature/productApi/productApi";
 import { products } from "@/assets/data";
 import RelativeScrolling from "@/components/common/RelativeScrolling";
 import Title from "@/components/common/Title";
@@ -16,8 +17,13 @@ const ProductView = () => {
   const [image, setImage] = useState("");
   const [size, setSize] = useState("");
 
+  const {data} = useFeatchSingleProductQuery(id)
+
+  // console.log(product);
+  
+
   const fetchProductData = () => {
-    const selectProduct = products.find((item) => item._id === id);
+    const selectProduct = data?.product
 
     if (selectProduct) {
       setProduct(selectProduct);
@@ -28,14 +34,13 @@ const ProductView = () => {
 
   useEffect(() => {
     fetchProductData();
-  }, [id, products]);
+  }, [id, data?.product]);
 
-  if (!product) {
-    return <p>Loading.....</p>;
-  }
+ 
 
-  const addCart = async (item, size) => {
-    if (size === "") return toast.error("Please select size");
+  const addCart = async (item, size) => {    
+    
+    if (size === " " || size === '' ) return toast.error("Please select size");
     try {
       const data = {
         userId: user._id,
@@ -43,13 +48,17 @@ const ProductView = () => {
         name: item.name,
         price: item.price,
         size: size,
-      };
+      };      
       const { success } = await addProductCard(data).unwrap();
       if (success) {
         toast.success(`${item.name} added to cart`);
       }
     } catch (error) {}
   };
+
+  if (!product) {
+    return <p>Loading.....</p>;
+  }
 
   return (
     <section>
