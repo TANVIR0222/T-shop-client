@@ -39,11 +39,11 @@ const Collection = () => {
         <div className="min-w-[200px]  md:h-screen bg-white p-4 shadow-2xl rounded-2xl">
           {/* search bar */}
           <div className="grid w-full max-w-sm items-center gap-1.5">
-            <label htmlFor="email">Search</label>
+            <label htmlFor="text">Search</label>
             <Input
               onChange={(e) => setSearchQuery(e.target.value)}
               type="text"
-              id="email"
+              id="text"
               placeholder="search"
             />
           </div>
