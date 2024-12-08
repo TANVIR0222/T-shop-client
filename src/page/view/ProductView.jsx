@@ -1,13 +1,13 @@
 import { useAddProductCardMutation } from "@/app/feature/cart/cartApi";
 import { useFeatchSingleProductQuery } from "@/app/feature/productApi/productApi";
-import { products } from "@/assets/data";
 import RelativeScrolling from "@/components/common/RelativeScrolling";
 import Title from "@/components/common/Title";
 import React, { useEffect, useState } from "react";
 import { FaHeart, FaStar, FaStarHalfStroke, FaTractor } from "react-icons/fa6";
 import { useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 const ProductView = () => {
   const { id } = useParams();
@@ -19,8 +19,7 @@ const ProductView = () => {
 
   const {data} = useFeatchSingleProductQuery(id)
 
-  // console.log(product);
-  
+  const navigate = useNavigate();  
 
   const fetchProductData = () => {
     const selectProduct = data?.product
@@ -42,16 +41,33 @@ const ProductView = () => {
     
     if (size === " " || size === '' ) return toast.error("Please select size");
     try {
-      const data = {
-        userId: user._id,
-        image: item.image,
-        name: item.name,
-        price: item.price,
-        size: size,
-      };      
-      const { success } = await addProductCard(data).unwrap();
-      if (success) {
-        toast.success(`${item.name} added to cart`);
+      if(user){
+        const data = {
+          userId: user._id,
+          image: item.image,
+          name: item.name,
+          price: item.price,
+          size: size,
+        };      
+        const { success } = await addProductCard(data).unwrap();
+        if (success) {
+          toast.success(`${item.name} added to cart`);
+        }
+      }else{
+      
+        Swal.fire({
+          title: "You ar not logged in",
+          text: "Please login to add to  the card? ",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, log in !"
+        }).then((result) => {
+          if (result.isConfirmed) {
+            navigate('/login');
+          }
+        });
       }
     } catch (error) {}
   };
@@ -155,7 +171,7 @@ const ProductView = () => {
         </div>
         <Title title="Relative Product" />
         <div className="">
-          <RelativeScrolling />
+          <RelativeScrolling id={id} />
         </div>
       </div>
     </section>
