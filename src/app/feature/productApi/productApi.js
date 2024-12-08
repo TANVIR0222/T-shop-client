@@ -59,7 +59,14 @@ export const productApi = createApi({
       }),
       providesTags: ['Product'],
     }),
+    relatedProduct: builder.query({
+      query: (id) => ({
+        url: `related-Product/${id}`,
+        method: "GET",
+      }),
+      providesTags: ['Product'],
+    }),
   }),
 });
 
-export const { useNewProductAddMutation  , useFeatchAllProductQuery  , useDeleteSingleProductMutation , useFeatchSingleProductQuery  , useUpdateSingleProductMutation , useAllProductQuery } = productApi;
+export const { useRelatedProductQuery , useNewProductAddMutation  , useFeatchAllProductQuery  , useDeleteSingleProductMutation , useFeatchSingleProductQuery  , useUpdateSingleProductMutation , useAllProductQuery } = productApi;
