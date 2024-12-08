@@ -53,9 +53,7 @@ const Register = () => {
     };
 
     try {
-      const response = await userRegister(register).unwrap();
-      console.log(response);
-      
+      const response = await userRegister(register).unwrap();      
       if (response.success) {
         toast.success("Register success");
         navigate("/login");
