@@ -114,6 +114,121 @@ body{
 ::-webkit-scrollbar-thumb:hover {
   background: #ccc;
 }
+.section__container {
+  max-width: var(--max-width-1400);
+  margin: auto;
+  padding: 5rem 1rem;
+}
+
+.hero__container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.hero__card {
+  position: relative;
+  box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.1);
+}
+
+.hero__content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-15%, -50%);
+}
+
+.deals__container {
+  background-color: #f4e5ec;
+  border-radius: 1rem;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  align-items: center;
+}
+.section__container {
+  max-width: var(--max-width-1400);
+  margin: auto;
+  padding: 5rem 1rem;
+}
+
+
+
+.deals__countdown__card {
+  height: 80px;
+  width: 80px;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  background-color: var(--white);
+  border-radius: 100%;
+  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.deals__countdown {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.deals__image img {
+  position: absolute;
+  left: 50%;
+  bottom: -5rem;
+  transform: translateX(-50%);
+  max-width: 550px;
+}
+
+.blog__card__content {
+  padding: 1rem;
+  text-align: center;
+}
+
+.blog__card {
+  background-color: var(--white);
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.1);
+}
+
+.blog__card__content h6 {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--primary-color);
+}
+
+.blog__card__content h4 {
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+  font-family: var(--header-font);
+  color: var(--text-dark);
+}
+
+.blog__card__content p {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-light);
+}
+
+.section__subheader {
+  max-width: 500px;
+  margin: auto;
+  color: var(--text-light);
+  text-align: center;
+}
+
+.section__header {
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  font-weight: 800;
+  font-family: var(--header-font);
+  color: var(--text-dark);
+  text-align: center;
+}
+
+.blog__container {
+  background-color: #f8fafc;
+  border-radius: 1rem;
+}
 
 @layer utilities {
   .active-link{
