@@ -1,10 +1,11 @@
 import HeaderDropdownMenu from "@/components/common/HeaderDropdownMenu";
-import { isAction } from "@reduxjs/toolkit";
 import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { IoSearch } from "react-icons/io5";
 import { BsHandbag } from "react-icons/bs";
-import { CgProfile } from "react-icons/cg";
+import { useSelector } from "react-redux";
+import UserDropdownMenu from "@/components/common/UserDropdownMenu";
+import { useFetchAllCartQuery } from "@/app/feature/cart/cartApi";
 
 const navbar = [
   { id: 1, name: "Home", link: "/" },
@@ -14,6 +15,8 @@ const navbar = [
 ];
 
 const Header = () => {
+  const {data: products } = useFetchAllCartQuery()
+
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -31,6 +34,9 @@ const Header = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  const {user} = useSelector((state) => state?.auth);
+  
   return (
     <>
       <header
@@ -70,20 +76,31 @@ const Header = () => {
               Shoppire
             </h1>
           </div>
-          <div className="flex gap-7">
-            <Link>
+          <div className="flex gap-7 items-center">
+            <Link to={'/collection'}>
               <IoSearch className="text-2xl" />
             </Link>
-            <Link to={'/adProduct'}>
+            <Link to={"/add-order"}>
               <div className="">
                 <BsHandbag className="text-2xl relative" />
-                <p className=" absolute top-[10px] right-[70px] bg-red-400 rounded-full px-2 py-1 p-1 text-white">4</p>
+                {
+                  products?.length > 0 && <p className=" absolute top-[10px] right-[87px] p-1 text-black">
+                  {products.length}
+                </p>
+                }
               </div>
             </Link>
-            <Link>
-              {" "}
-              <CgProfile className="text-2xl" />
-            </Link>
+           <div className="">
+           {
+            user ? (
+              <UserDropdownMenu user={user} role = {user?.role} />
+              ) : (
+                <Link to="/login">
+                  <button className="bg-[#43c2d1] text-white rounded px-5 py-2">Login</button>
+                </Link>
+              )
+           }
+           </div>
           </div>
         </nav>
       </header>
