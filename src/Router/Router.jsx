@@ -14,6 +14,7 @@ import PlaceOrder from "@/page/order/PlaceOrder";
 import Success from "@/page/order/Success";
 import CartView from "@/page/view/CartView";
 import ProductView from "@/page/view/ProductView";
+import AdminPermition from "@/page/layout/AdminPermition";
 import {
     createBrowserRouter,
   } from "react-router-dom";
@@ -61,11 +62,11 @@ export  const router = createBrowserRouter([
         },
         {
           path: "/add-product",
-          element: <AddProduct />,
+          element:<AdminPermition><AddProduct /> </AdminPermition>  ,
         },
         {
           path: "/all-product",
-          element: <ProductList />,
+          element: <AdminPermition ><ProductList /></AdminPermition> ,
         },
         {
           path: "/update-product/:id",
@@ -73,11 +74,11 @@ export  const router = createBrowserRouter([
         },
         {
           path: "/all-user",
-          element: <UserList />,
+          element: <AdminPermition ><UserList /></AdminPermition> ,
         },
         {
           path: "/all-Order",
-          element: <AllOrderList />,
+          element:<AdminPermition > <AllOrderList /></AdminPermition>,
         },
         {
           path: "/success",

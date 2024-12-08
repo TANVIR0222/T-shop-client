@@ -34,9 +34,6 @@ const UserDropdownMenu = ({ user, role }) => {
             <Link to={"/order"}>
               <DropdownMenuItem>My Order</DropdownMenuItem>
             </Link>
-            <Link>
-              <DropdownMenuItem>Payment History</DropdownMenuItem>{" "}
-            </Link>
             <DropdownMenuItem onClick={handleLogout}>Logout</DropdownMenuItem>
           </DropdownMenuContent>
         ) : (
@@ -56,6 +53,7 @@ const UserDropdownMenu = ({ user, role }) => {
             <Link to={"/all-user"}>
               <DropdownMenuItem>All User</DropdownMenuItem>
             </Link>
+            <DropdownMenuItem onClick={handleLogout}>Logout</DropdownMenuItem>
           </DropdownMenuContent>
         )}
       </DropdownMenu>

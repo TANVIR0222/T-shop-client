@@ -1,4 +1,4 @@
-import { useUserAllOrderQuery } from "@/app/feature/orderApi/orderApi";
+import { useFetchSingleOrderQuery } from "@/app/feature/orderApi/orderApi";
 import { products } from "@/assets/data";
 import Loading from "@/components/common/Loading";
 import React, { useState } from "react";
@@ -8,8 +8,8 @@ import { useSelector } from "react-redux";
 const Order = () => {
 
   const {user} = useSelector(state => state.auth)
-  const { data: orders, isLoading } = useUserAllOrderQuery(user._id);
-  console.log(orders);
+  const { data: orders, isLoading } = useFetchSingleOrderQuery(user._id);
+  
 
   return isLoading ? (
     <Loading />

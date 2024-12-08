@@ -124,9 +124,9 @@ const Collection = () => {
               {page}/{data?.totalPage}
             </p>
             <button
-              className="bg-secondary px-3 py-[6px] rounded "
+              className="bg-secondary px-3 py-[6px] rounded  "
               onClick={handleNext}
-              disabled={data?.currentPage === data?.totalPage}
+              disabled={data?.currentPage === data?.totalPage ? ' hidden' : ''}
             >
               Next
             </button>
