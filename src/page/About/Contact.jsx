@@ -11,8 +11,8 @@ const Contact = () => {
     setError(false);
     setSuccess(false);
     emailjs
-      .sendForm(import.meta.env.VITE_SERVICE_ID, import.meta.env.VITE_TEMPLATE_ID, form.current, {
-        publicKey: import.meta.env.VITE_PUBLIC_KEY,
+      .sendForm('service_mxdjlru', 'template_ry023r8', form.current, {
+        publicKey:'QcGEu9QKfFP48mKbT',
       })
       .then(
         () => {
