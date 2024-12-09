@@ -1,7 +1,5 @@
 import { useFetchSingleOrderQuery } from "@/app/feature/orderApi/orderApi";
-import { products } from "@/assets/data";
 import Loading from "@/components/common/Loading";
-import React, { useState } from "react";
 import { TfiPackage } from "react-icons/tfi";
 import { useSelector } from "react-redux";
 
