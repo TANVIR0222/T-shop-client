@@ -2,6 +2,7 @@ import { useDeleteSingleCartMutation, useFetchAllCartQuery } from "@/app/feature
 import CartTotal from "@/components/common/CartTotal";
 import Loading from "@/components/common/Loading";
 import { useState } from "react";
+import { Helmet } from "react-helmet";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
@@ -56,6 +57,10 @@ const CartView = () => {
     <Loading />
   ) : (
     <div className="mt-20">
+      <Helmet>
+          <meta charSet="utf-8" />
+          <title>Cart View page  || T-shop</title>
+        </Helmet>
       <div className=" grid grid-cols-1 md:flex flex-row-reverse">
         <div className="w-full md:w-1/6 bg-white shadow text-balck mt-4 md:mt-14 h-fit">
           {/*  */}

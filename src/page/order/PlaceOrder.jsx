@@ -10,6 +10,7 @@ import {
   useUserOrderMutation,
 } from "@/app/feature/orderApi/orderApi";
 import { toast } from "react-toastify";
+import { Helmet } from "react-helmet";
 
 const PlaceOrder = () => {
   const {
@@ -95,6 +96,10 @@ const PlaceOrder = () => {
 
   return (
     <div className="mt-16 mx-4 md:mx-1">
+      <Helmet>
+          <meta charSet="utf-8" />
+          <title>Pleace Order View page  || T-shop</title>
+        </Helmet>
       {/* <div className=""> */}
       <form className="" onSubmit={handleSubmit(onSubmit)}>
         <h2 className="text-2xl font-semibold text-gray-800 mb-6">

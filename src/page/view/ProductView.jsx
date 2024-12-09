@@ -3,6 +3,7 @@ import { useFeatchSingleProductQuery } from "@/app/feature/productApi/productApi
 import RelativeScrolling from "@/components/common/RelativeScrolling";
 import Title from "@/components/common/Title";
 import React, { useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
 import { FaHeart, FaStar, FaStarHalfStroke, FaTractor } from "react-icons/fa6";
 import { useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -78,6 +79,10 @@ const ProductView = () => {
 
   return (
     <section>
+      <Helmet>
+          <meta charSet="utf-8" />
+          <title>Product View page  || T-shop</title>
+        </Helmet>
       <div className="max-padd-container">
         <div className="grid grid-rows-1 md:grid-cols-2 mt-20">
           {/* product data */}

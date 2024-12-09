@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet";
 import { RiDoubleQuotesL } from "react-icons/ri";
 
 const statistics = [
@@ -9,6 +10,10 @@ const statistics = [
 const About = () => {
   return (
     <div className=" ">
+       <Helmet>
+          <meta charSet="utf-8" />
+          <title>About page  || T-shop</title>
+        </Helmet>
       <div className="grid grid-cols-1 md:grid-cols-2 mx-4 gap-4">
         {/* left side */}
         <div className="mt-20">

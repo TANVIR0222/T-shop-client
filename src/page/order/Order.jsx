@@ -1,5 +1,6 @@
 import { useFetchSingleOrderQuery } from "@/app/feature/orderApi/orderApi";
 import Loading from "@/components/common/Loading";
+import { Helmet } from "react-helmet";
 import { TfiPackage } from "react-icons/tfi";
 import { useSelector } from "react-redux";
 
@@ -13,6 +14,10 @@ const Order = () => {
     <Loading />
   ) : (
     <div className="p-6 bg-gray-100 min-h-screen mt-16">
+      <Helmet>
+          <meta charSet="utf-8" />
+          <title>Order View page  || T-shop</title>
+        </Helmet>
       {/* Header */}
       <header className="mb-6">
         <h1 className="text-2xl font-bold text-gray-800">Your Orders</h1>

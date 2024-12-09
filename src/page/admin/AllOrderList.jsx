@@ -1,6 +1,7 @@
 import { useUserAllOrderQuery } from "@/app/feature/orderApi/orderApi";
 import Loading from "@/components/common/Loading";
 import OrderStatusSelector from "@/components/common/OrderStatusSelector";
+import { Helmet } from "react-helmet";
 import { TfiPackage } from "react-icons/tfi";
 
 const AllOrderList = () => {
@@ -10,6 +11,10 @@ const AllOrderList = () => {
     <Loading />
   ) : (
     <div className="p-6 bg-gray-100 min-h-screen mt-16">
+      <Helmet>
+          <meta charSet="utf-8" />
+          <title>All Order List page  || T-shop</title>
+        </Helmet>
       {/* Header */}
       <header className="mb-6">
         <h1 className="text-2xl font-bold text-gray-800">Your Orders</h1>

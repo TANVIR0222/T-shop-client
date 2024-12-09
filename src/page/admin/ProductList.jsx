@@ -6,6 +6,7 @@ import Loading from "@/components/common/Loading";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import React, { useState } from "react";
+import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
@@ -47,6 +48,10 @@ const ProductList = () => {
     <Loading />
   ) : (
     <div className="min-h-screen p-4 md:p-8 mt-16">
+      <Helmet>
+          <meta charSet="utf-8" />
+          <title>Product List page  || T-shop</title>
+        </Helmet>
       <div className=" grid grid-cols-1 md:flex items-center justify-between w-full my-5 gap-4">
         <div className="">
           <h1 className="text-2xl md:text-3xl font-bold text-gray-800 ">

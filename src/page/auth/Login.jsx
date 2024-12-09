@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { useUserLoginMutation } from "@/app/feature/authApi/AuthApi";
 import { toast } from "react-toastify";
 import { setUser } from "@/app/feature/authApi/userSlice";
+import { Helmet } from "react-helmet";
 
 const Login = () => {
   const {
@@ -48,6 +49,10 @@ const Login = () => {
 
   return (
     <section className="w-full container mx-auto px-2 mt-16">
+      <Helmet>
+          <meta charSet="utf-8" />
+          <title>Login page  || T-shop</title>
+        </Helmet>
       <div className="bg-white my-4 w-full max-w-lg mx-auto rounded p-7">
         <form className="grid gap-4 py-4" onSubmit={handleSubmit(onSubmit)}>
           <h2 className="text-2xl font-bold text-center">Login</h2>

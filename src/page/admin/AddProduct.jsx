@@ -5,6 +5,7 @@ import { FaCloudUploadAlt } from "react-icons/fa";
 import { useImageUploadeMutation } from "@/app/feature/imageUploadeApi/imageApi";
 import { useNewProductAddMutation } from "@/app/feature/productApi/productApi";
 import { toast } from "react-toastify";
+import { Helmet } from "react-helmet";
 
 const AddProduct = () => {
   const {
@@ -65,6 +66,10 @@ const AddProduct = () => {
 
   return (
     <div className="flex-row-reverse justify-center items-center min-h-screen mt-16">
+      <Helmet>
+          <meta charSet="utf-8" />
+          <title>Add Product page  || T-shop</title>
+        </Helmet>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="bg-white p-8 rounded-lg w-full "

@@ -1,5 +1,6 @@
 import { useDeletCartOrderMutation } from "@/app/feature/orderApi/orderApi";
 import { useEffect } from "react";
+import { Helmet } from "react-helmet";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -28,6 +29,10 @@ const Success = () => {
 
   return (
     <div className="mt-20">
+      <Helmet>
+          <meta charSet="utf-8" />
+          <title>Payment success page  || T-shop</title>
+        </Helmet>
       <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-4">
         <div className="max-w-lg w-full bg-white shadow-lg rounded-lg p-6 text-center">
           <div className="flex justify-center mb-4">

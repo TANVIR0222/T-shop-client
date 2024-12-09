@@ -2,6 +2,7 @@ import { useUserRegisterMutation } from "@/app/feature/authApi/AuthApi";
 import { useImageUploadeMutation } from "@/app/feature/imageUploadeApi/imageApi";
 import ImageLoading from "@/components/common/ImageLoading";
 import React, { useRef, useState } from "react";
+import { Helmet } from "react-helmet";
 import { useForm } from "react-hook-form";
 import { FaRegEyeSlash } from "react-icons/fa6";
 import { FaRegEye } from "react-icons/fa6";
@@ -69,6 +70,10 @@ const Register = () => {
 
   return (
     <section className="w-full container mx-auto px-2 mt-16">
+      <Helmet>
+          <meta charSet="utf-8" />
+          <title>Register page  || T-shop</title>
+        </Helmet>
       <div className="bg-white my-4 w-full max-w-lg mx-auto rounded p-7">
         <h1 className="text-3xl font-bold text-center mb-4">Register</h1>
         <p>Welcome to Shoppire</p>

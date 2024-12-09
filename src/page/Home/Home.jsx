@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet";
 import Blogs from "./Blogs";
 import DealsSections from "./DealsSections";
 import Feature from "./Feature";
@@ -8,6 +9,10 @@ import SubHero from "./SubHero";
 const Home = () => {
     return (
         <div>
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>Home page  || T-shop</title>
+            </Helmet>
            <Hero /> 
            <SubHero />
            <ShowProduct />

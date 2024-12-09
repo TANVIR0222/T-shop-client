@@ -3,6 +3,7 @@ import CollectionCart from "@/components/common/CollectionCart";
 import Title from "@/components/common/Title";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
+import { Helmet } from "react-helmet";
 
 const Collection = () => {
   const [search, setSearchQuery] = useState("");
@@ -31,6 +32,10 @@ const Collection = () => {
 
   return (
     <section className="">
+       <Helmet>
+          <meta charSet="utf-8" />
+          <title>Collection page  || T-shop</title>
+        </Helmet>
       <div className="mt-20 flex flex-col sm:flex-row gap-8">
         {/* filter options  */}
         <div className="min-w-[200px]  md:h-screen bg-white p-4 shadow-2xl rounded-2xl">

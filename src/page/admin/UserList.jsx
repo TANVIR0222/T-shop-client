@@ -4,6 +4,7 @@ import {
 } from "@/app/feature/userApi/userApi";
 import Loading from "@/components/common/Loading";
 import Update from "@/components/common/Update";
+import { Helmet } from "react-helmet";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 
@@ -45,6 +46,10 @@ const UserList = () => {
     <Loading />
   ) : (
     <div className="min-h-screen p-4 md:p-8 mt-16">
+      <Helmet>
+          <meta charSet="utf-8" />
+          <title>User List page  || T-shop</title>
+        </Helmet>
       <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6">
         {/* All Products : {user?.user?.length} */}
       </h1>
