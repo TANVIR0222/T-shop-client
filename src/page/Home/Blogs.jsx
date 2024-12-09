@@ -1,4 +1,4 @@
-import blogs from  "../../assets/blogs";
+import blogs from "../../assets/blogs";
 
 const Blogs = () => {
 
