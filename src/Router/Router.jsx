@@ -18,6 +18,7 @@ import AdminPermition from "@/page/layout/AdminPermition";
 import {
     createBrowserRouter,
   } from "react-router-dom";
+import Contact from "@/page/About/Contact";
 
 export  const router = createBrowserRouter([
     {
@@ -35,6 +36,10 @@ export  const router = createBrowserRouter([
         {
           path: "/collection",
           element: <Collection />,
+        },
+        {
+          path: "/Contact",
+          element: <Contact />,
         },
         {
           path: "/product/:id",
