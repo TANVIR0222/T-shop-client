@@ -1,4 +1,3 @@
-import Blogs from "./Blogs";
 import DealsSections from "./DealsSections";
 import Feature from "./Feature";
 import Hero from "./Hero";
@@ -13,7 +12,6 @@ const Home = () => {
            <ShowProduct />
            <DealsSections />
            <Feature />
-           <Blogs />
         </div>
     );
 };
