@@ -8,45 +8,54 @@ export const productApi = createApi({
   endpoints: (builder) => ({
     newProductAdd: builder.mutation({
       query: (product) => ({
-        url: `/add-product`,
+        url: `add-product`,
         method: "POST",
         body: product
       }),
       invalidatesTags: ['Product'],
     }),
+    // featchAllProduct: builder.query({
+    //   query: ({ category, subCategory, minPrice, maxPrice, search, page, limit }) => {
+    //     // Construct query parameters dynamically
+    //   //   const params = new URLSearchParams({
+    //   //     ...(category && { category }),
+    //   //     ...(subCategory && { subCategory }),
+    //   //     ...(minPrice && { minPrice }),
+    //   //     ...(maxPrice && { maxPrice }),
+    //   //     ...(search && { search }),
+    //   //     ...(page && { page }),
+    //   //     ...(limit && { limit }),
+    //   //   });
+    //   //   return `all-product?${params}`;
+    //   // },
+    //   url : ``,
+    //   providesTags: ['Product'],
+    // }),
+
     featchAllProduct: builder.query({
-      query: ({ category, subCategory, minPrice, maxPrice, search, page, limit }) => {
-        // Construct query parameters dynamically
-        const params = new URLSearchParams({
-          ...(category && { category }),
-          ...(subCategory && { subCategory }),
-          ...(minPrice && { minPrice }),
-          ...(maxPrice && { maxPrice }),
-          ...(search && { search }),
-          ...(page && { page }),
-          ...(limit && { limit }),
-        });
-        return `all-product?${params}`;
-      },
-      providesTags: ['Product'],
+      query: () => ({
+        url: `all-product`,
+        method: "GET",
+      }),
     }),
+
     deleteSingleProduct: builder.mutation({
       query: (id) => ({
-        url: `/delete-product/${id}`,
+        url: `delete-product/${id}`,
         method: "DELETE",
       }),
       invalidatesTags: ['Product'],
     }),
     featchSingleProduct: builder.query({
       query: (id) => ({
-        url: `/single-product/${id}`,
+        url: `single-product/${id}`,
         method: "get",
       }),
       providesTags: ['Product'],
     }),
     updateSingleProduct: builder.mutation({
       query: ({id , ...res}) => ({
-        url: `/update-product/${id}`,
+        url: `update-product/${id}`,
         method: "PATCH",
         body: res
       }),
