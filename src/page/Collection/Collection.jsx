@@ -18,9 +18,7 @@ const Collection = () => {
     page,
     limit: 10,
   };
-  const { data } = useFeatchAllProductQuery();
-  console.log(data);
-  
+  const { data } = useFeatchAllProductQuery(queryParameters);  
 
   const handleNext = () => {
     setPage(page + 1);
