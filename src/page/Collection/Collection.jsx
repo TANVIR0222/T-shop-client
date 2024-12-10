@@ -107,8 +107,8 @@ const Collection = () => {
         <div className="bg-white p-4 rounded-2xl">
           <Title title="Our Collection" />
           <div className=" grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-4">
-            {data?.length > 0 ? (
-              data?.map((product) => (
+            {data?.product?.length > 0 ? (
+              data?.product?.map((product) => (
                 <div key={product._id} className="">
                   <CollectionCart item={product} />
                 </div>
@@ -122,7 +122,7 @@ const Collection = () => {
             <button
               className="bg-secondary px-3 py-[6px] rounded "
               onClick={handlePrevious}
-              disabled={page === 1 && !data?.length}
+              disabled={page === 1 && !data?.product?.length}
             >
               Previous
             </button>
