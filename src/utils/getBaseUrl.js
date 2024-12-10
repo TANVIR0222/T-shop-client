@@ -1,7 +1,7 @@
 
 
 const getBaseUrl = () => {
-    return 'https://t-shop-server.onrender.com/api/v1'
+    return 'https://t-shop-server.onrender.com'
 };
 
 export default getBaseUrl;
