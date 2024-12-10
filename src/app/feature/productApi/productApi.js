@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const productApi = createApi({
   reducerPath: "productApi",
-  baseQuery: fetchBaseQuery({ baseUrl: `${getBaseUrl()}/product/` }),
+  baseQuery: fetchBaseQuery({ baseUrl: `${getBaseUrl()}/api/v1/product/` }),
   tagTypes: ['Product'],
   endpoints: (builder) => ({
     newProductAdd: builder.mutation({
@@ -14,31 +14,22 @@ export const productApi = createApi({
       }),
       invalidatesTags: ['Product'],
     }),
-    // featchAllProduct: builder.query({
-    //   query: ({ category, subCategory, minPrice, maxPrice, search, page, limit }) => {
-    //     // Construct query parameters dynamically
-    //   //   const params = new URLSearchParams({
-    //   //     ...(category && { category }),
-    //   //     ...(subCategory && { subCategory }),
-    //   //     ...(minPrice && { minPrice }),
-    //   //     ...(maxPrice && { maxPrice }),
-    //   //     ...(search && { search }),
-    //   //     ...(page && { page }),
-    //   //     ...(limit && { limit }),
-    //   //   });
-    //   //   return `all-product?${params}`;
-    //   // },
-    //   url : ``,
-    //   providesTags: ['Product'],
-    // }),
-
     featchAllProduct: builder.query({
-      query: () => ({
-        url: `all-product`,
-        method: "GET",
-      }),
+      query: ({ category, subCategory, minPrice, maxPrice, search, page, limit }) => {
+        // Construct query parameters dynamically
+        const params = new URLSearchParams({
+          ...(category && { category }),
+          ...(subCategory && { subCategory }),
+          ...(minPrice && { minPrice }),
+          ...(maxPrice && { maxPrice }),
+          ...(search && { search }),
+          ...(page && { page }),
+          ...(limit && { limit }),
+        });
+        return `all-product?${params}`;
+      },
+      providesTags: ['Product'],
     }),
-
     deleteSingleProduct: builder.mutation({
       query: (id) => ({
         url: `delete-product/${id}`,

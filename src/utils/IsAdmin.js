@@ -1,6 +1,6 @@
 
 const isAdmin = (role) => {
-    if(role === 'ADMIN'){
+    if(role === 'Admin'){
         return true
     }
     return false;
