@@ -19,7 +19,8 @@ const Collection = () => {
     limit: 10,
   };
   const { data } = useFeatchAllProductQuery(queryParameters);  
-
+  console.log(data);
+  
   const handleNext = () => {
     setPage(page + 1);
   };
@@ -106,8 +107,8 @@ const Collection = () => {
         <div className="bg-white p-4 rounded-2xl">
           <Title title="Our Collection" />
           <div className=" grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-4">
-            {data?.product?.length > 0 ? (
-              data?.product?.map((product) => (
+            {data?.length > 0 ? (
+              data?.map((product) => (
                 <div key={product._id} className="">
                   <CollectionCart item={product} />
                 </div>
@@ -121,7 +122,7 @@ const Collection = () => {
             <button
               className="bg-secondary px-3 py-[6px] rounded "
               onClick={handlePrevious}
-              disabled={page === 1 && !data?.product?.length}
+              disabled={page === 1 && !data?.length}
             >
               Previous
             </button>

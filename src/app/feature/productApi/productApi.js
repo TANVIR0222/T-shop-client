@@ -26,10 +26,16 @@ export const productApi = createApi({
           ...(page && { page }),
           ...(limit && { limit }),
         });
-        return `all-product?${params}`;
+        return `my-product?${params}`;
       },
       providesTags: ['Product'],
     }),
+    // featchAllProduct: builder.query({
+    //   query : () => ({
+    //     url : `/all-product`,
+    //     method: 'GET'
+    //   })
+    // }),
     deleteSingleProduct: builder.mutation({
       query: (id) => ({
         url: `delete-product/${id}`,
