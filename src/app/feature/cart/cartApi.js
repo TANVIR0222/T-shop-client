@@ -29,10 +29,7 @@ export const cartApi = createApi({
       invalidatesTags: ["Cart"]
     }),
     fetchSingleCart: builder.query({
-      query: (id) => ({
-        url: `single-cart/${id}`,
-        method: "GET",
-      }),
+      query: (id) =>`single-cart/${id}`,
       providesTags: ["Cart"]
     }),
   }),
