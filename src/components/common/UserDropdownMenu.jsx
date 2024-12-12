@@ -1,3 +1,4 @@
+import { useUserLogoutMutation } from "@/app/feature/authApi/AuthApi";
 import { logout } from "@/app/feature/authApi/userSlice";
 import {
   DropdownMenu,
@@ -12,8 +13,10 @@ import { Link } from "react-router-dom";
 
 const UserDropdownMenu = ({ user, role }) => {
   const dispatch = useDispatch();
+  const [userLogout] = useUserLogoutMutation();
   const handleLogout = async () => {
     try {
+        await userLogout().unwrap();
       await dispatch(logout());
     } catch (error) {
       console.log(error);
