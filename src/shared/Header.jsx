@@ -5,7 +5,7 @@ import { IoSearch } from "react-icons/io5";
 import { BsHandbag } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import UserDropdownMenu from "@/components/common/UserDropdownMenu";
-import { useFetchAllCartQuery } from "@/app/feature/cart/cartApi";
+import { useFetchSingleCartQuery } from "@/app/feature/cart/cartApi";
 
 const navbar = [
   { id: 1, name: "Home", link: "/" },
@@ -15,7 +15,6 @@ const navbar = [
 ];
 
 const Header = () => {
-  const {data: products } = useFetchAllCartQuery()
 
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -35,7 +34,9 @@ const Header = () => {
     };
   }, []);
 
-  const {user} = useSelector((state) => state?.auth);
+  const {user} = useSelector((state) => state?.auth); 
+  const {data: products } = useFetchSingleCartQuery(user?._id)
+  
   
   return (
     <>
