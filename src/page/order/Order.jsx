@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 const Order = () => {
 
   const {user} = useSelector(state => state.auth)
-  const { data: orders, isLoading } = useFetchSingleOrderQuery(user._id);
+  const { data: orders, isLoading } = useFetchSingleOrderQuery(user?._id);
   
 
   return isLoading ? (

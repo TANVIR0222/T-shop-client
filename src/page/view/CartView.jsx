@@ -1,14 +1,16 @@
-import { useDeleteSingleCartMutation, useFetchAllCartQuery } from "@/app/feature/cart/cartApi";
+import { useDeleteSingleCartMutation, useFetchSingleCartQuery } from "@/app/feature/cart/cartApi";
 import CartTotal from "@/components/common/CartTotal";
 import Loading from "@/components/common/Loading";
 import { useState } from "react";
 import { Helmet } from "react-helmet";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 
 const CartView = () => {
-  const { data: products, isLoading } = useFetchAllCartQuery();
+  const {user} = useSelector((state) => state?.auth); 
+  const { data: products, isLoading } = useFetchSingleCartQuery(user?._id);
   const [deleteSingleCart] = useDeleteSingleCartMutation();
   const totalPrice = products?.reduce(
     (acc, item) => acc + item.price ,
