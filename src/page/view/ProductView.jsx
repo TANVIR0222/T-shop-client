@@ -17,6 +17,8 @@ const ProductView = () => {
   const [product, setProduct] = useState(null);
   const [image, setImage] = useState("");
   const [size, setSize] = useState("");
+  const [favorite, setfavorite] = useState(false);
+
 
   const {data} = useFeatchSingleProductQuery(id)
 
@@ -75,6 +77,10 @@ const ProductView = () => {
 
   if (!product) {
     return <p>Loading.....</p>;
+  }
+
+  const handleFavorite = () => {
+    setfavorite(!favorite);
   }
 
   return (
@@ -156,10 +162,15 @@ const ProductView = () => {
                 </button>
               </Link>
               <button
-                // onClick={handleSizeChange}
+                onClick={handleFavorite}
                 className="py-2 px-6 border-[1px] border-bg-tertiary/80"
               >
-                <FaHeart />
+                {
+                  favorite ? 
+                  <FaHeart  className="text-black" /> 
+                  :
+                  <FaHeart className="text-red-500"  />
+                }
               </button>
             </div>
             <div className="flex items-center gap-2 ">
