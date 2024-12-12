@@ -61,6 +61,7 @@ const Login = () => {
             <input
               type="email"
               id="email"
+              defaultValue={'admin@gmail.com'}
               className=" p-2 border rounded outline-none focus:border-primary-200"
               name="email"
               placeholder="Enter your email"
@@ -75,6 +76,7 @@ const Login = () => {
                 id="password"
                 className="w-full outline-none"
                 name="password"
+                defaultValue={'admin'}
                 placeholder="Enter your password"
                 {...register("password", { required: true })}
               />
